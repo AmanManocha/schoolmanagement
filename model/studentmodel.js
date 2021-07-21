@@ -1,7 +1,7 @@
-const { studentmodel } = require(".");
+
 
 module.exports = (sequelize,Sequelize)=>{
-    const Roles  = sequelize.define('student',{
+    const studentmodel  = sequelize.define('student',{
         id:{
             type:Sequelize.INTEGER,
             allowNULL:false,

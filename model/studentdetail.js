@@ -1,9 +1,8 @@
-const { studentdetail } = require(".");
 
 module.exports = (sequelize,Sequelize)=>{
-    const Roles  = sequelize.define('studentdetail',{
+    const studentdetail  = sequelize.define('studentdetail',{
         
-        adress:{
+        address:{
             type:Sequelize.STRING,
             allowNULL:false,
         },
