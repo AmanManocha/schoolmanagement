@@ -5,16 +5,24 @@ const Teacher =  db.teachermodel;
 const Teacherdetail = db.teacherdetail;
 const Student = db.studentmodel;
 const Studentdetail = db.studentdetail;
+const {auth_teachermodel,auth_teacherdetail,auth_studentmodel,auth_studentdetail}=require('./vallidator/auth');
+const bcrypt = require('bcrypt');
+require('./vallidator/passport');
+const jwt = require('jsonwebtoken');
+const passport = require('passport');
 
 
-exports.teacher = (req,res)=>{
-    console.log(req.body)
+exports.teacher = async(req,res)=>{
+    const valid = await auth_teachermodel.validateAsync(req.body);
+    const password= req.body.password;
+    const epassword= await bcrypt.hash(password,10);
+    console.log(valid.name);
     const role = {
-       id:req.body.id,
-       name:req.body.name,
-       DOB:req.body.DOB,
-       password:req.body.password,
+       name:valid.name,
+       DOB:valid.DOB,
+       password:epassword,
     };
+    console.log(role);
   Teacher.create(role).then((data)=>{
     res.send(data)
   })
@@ -44,6 +52,7 @@ exports.create = async(req,res)=>{
 
 
 exports.teacherdetail= async (req,res)=>{
+    const valid = await auth_teacherdetail.validateAsync(req.body);
     const emp = {
         address:req.body.address,
         city:req.body.city,
@@ -61,7 +70,8 @@ exports.teacherdetail= async (req,res)=>{
     })
 }
 
-exports.student = (req,res)=>{
+exports.student = async (req,res)=>{
+    const valid = await auth_studentmodel.validateAsync(req.body);
     console.log(req.body)
     const role = {
        id:req.body.id,
@@ -97,6 +107,7 @@ exports.create = async(req,res)=>{
 }
 
 exports.studentdetail= async (req,res)=>{
+    const valid = await auth_studentdetail.validateAsync(req.body);
     const emp = {
         address:req.body.address,
         city:req.body.city,
@@ -239,4 +250,22 @@ catch(error){
     })
 }
 
+}
+
+
+
+exports.login = (req,res,next)=>{
+    passport.authenticate('local',(err,user,info)=>{
+        if(err) res.status(404).json(err);
+        if(user) return res.status(200).json({
+            "token":jwt.sign({id:user.id},
+                "SECRETKEY007",
+                {
+                    expiresIn:"20m"
+                }),
+                data:user,
+        })
+
+        if(info) return res.status(401).json(info) 
+    })(req,res,next);
 }

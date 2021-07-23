@@ -7,7 +7,7 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 const db=require('../myapp/model');
-db.sequelize.sync();
+db.sequelize.sync({});
 
 var app = express();
 

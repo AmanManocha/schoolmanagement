@@ -4,20 +4,20 @@ module.exports = (sequelize,Sequelize)=>{
         
         address:{
             type:Sequelize.STRING,
-            allowNULL:false,
+            allowNull:false,
         },
         city:{
             type:Sequelize.STRING,
-            allowNULL:false,
+            allowNull:false,
         },
         
         class:{
             type:Sequelize.INTEGER,
-            allowNULL:false,},
+            allowNull:false,},
         
         parentscontact:{
                 type:Sequelize.INTEGER,
-                allowNULL:false,},
+                allowNull:false,},
         
       
     },

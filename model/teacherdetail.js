@@ -4,19 +4,19 @@ module.exports = (sequelize,Sequelize)=>{
         
         address:{
             type:Sequelize.STRING,
-            allowNULL:false,
+            allowNull:false,
         },
         city:{
             type:Sequelize.STRING,
-            allowNULL:false,
+            allowNull:false,
         },
         qualification:{
             type:Sequelize.STRING,
-            allowNULL:false,
+            allowNull:false,
         },
         contact:{
             type:Sequelize.INTEGER,
-            allowNULL:false,}
+            allowNull:false,}
       
     },
     {

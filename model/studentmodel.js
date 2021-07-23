@@ -4,21 +4,21 @@ module.exports = (sequelize,Sequelize)=>{
     const studentmodel  = sequelize.define('student',{
         id:{
             type:Sequelize.INTEGER,
-            allowNULL:false,
+            allowNull:false,
             primaryKey:true,
             autoIncrement:true,
         },
         name:{
             type:Sequelize.STRING,
-            allowNULL:false,
+            allowNull:false,
         },
         DOB:{
             type:Sequelize.STRING,
-            allowNULL:false,
+            allowNull:false,
         },
         password:{
             type:Sequelize.STRING,
-            allowNULL:false,
+            allowNull:false,
         },
       
     },{
